@@ -132,9 +132,7 @@
       const questionDiv = document.getElementById('question');
       const timerDiv = document.getElementById('timer');
 
-      // Simple beep sound (very short silent tone as placeholder)
-      // To use a real beep, replace the source with a valid beep audio file URL or base64 data
-      const beepSound = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=');
+      const beepSound = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
 
       function speak(text, onEnd) {
         const utterance = new SpeechSynthesisUtterance(text);
@@ -162,28 +160,27 @@
         const questionText = questions[questionIndex];
         questionDiv.textContent = questionText;
 
-        // Speak the question then instructions in sequence
         speak(questionText, () => {
           speak("Start preparing your response", () => {
             timerDiv.textContent = 'Preparation Time: ' + prepTime + ' seconds';
             startTimer(prepTime,
               (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
               () => {
-                // After preparation timer ends, say "Now record your response"
                 speak("Now record your response after the beep", () => {
-                  // Play beep, then start response timer after beep ends
-                  beepSound.play();
-                  beepSound.onended = () => {
-                    timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
-                    startTimer(responseTime,
-                      (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
-                      () => {
-                        timerDiv.textContent = 'Time is up! Click Start to try another question.';
-                        startBtn.disabled = false;
-                      }
-                    );
-                  };
+                  setTimeout(() => {
+                    beepSound.play();
+                  }, 300);
                 });
+                beepSound.onended = () => {
+                  timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
+                  startTimer(responseTime,
+                    (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
+                    () => {
+                      timerDiv.textContent = 'Time is up! Click Start to try another question.';
+                      startBtn.disabled = false;
+                    }
+                  );
+                };
               }
             );
           });
