@@ -170,7 +170,7 @@
               (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
               () => {
                 // After preparation timer ends, say "Now record your response"
-                speak("Now record your response", () => {
+                speak("Now record your response after the beep", () => {
                   // Play beep, then start response timer after beep ends
                   beepSound.play();
                   beepSound.onended = () => {
