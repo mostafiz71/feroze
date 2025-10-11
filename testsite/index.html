@@ -1,35 +1,74 @@
 <!DOCTYPE html>
-<html lang ="en">
+<html lang="en">
 <head>
-	<meta charset = "UTF-8">
-	<title> Feroze </title>
-	<link rel="icon" type = "image/png" href = ico.png>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
-		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" 
-		crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEFL Speaking Test-1 Practice</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    #question { margin: 20px 0; font-size: 1.2em; }
+    #timer { font-size: 2em; color: #d9534f; }
+    #startBtn { padding: 10px 20px; font-size: 1em; }
+  </style>
 </head>
-
 <body>
+  <h1>TOEFL Speaking Test-1 Practice</h1>
+  <button id="startBtn">Start Test</button>
+  <div id="question"></div>
+  <div id="timer"></div>
 
-	<h1> Hello There! This is a test Site </h1>
-	<p> Isn't This Fantastic. Browser SYnce is Awesome!!!!!!!!!!!!!!!!!!!!! </p>
-	<figure>
-		<img src="natgeo.jpg" width = "500" alt ="Lighting">
-		<figcaption> Source: Natgeo </figcaption>
-	</figure>
-	<h2> Let's Know the Story Behind this Iconic Image </h2>
-	<p>Lighter, positively charged particles form at the top of the cloud. 
-	Heavier, negatively charged particles sink to the bottom of the cloud. 
-	When the positive and negative charges grow large enough, 
-	a giant spark - lightning - occurs between the two charges within the cloud.</p>
-	
-	<i class = "fab fa-angle-double-down fa-10x"> </i>
-	<br>
-	<h3> Find Me on Social Media </h3>
-	<a href = "https://twitter.com/"><i class="fab fa-twitter fa-3x"></i></a>
-	<a href = "https://facebook.com/mostafiz.feroze"><i class="fab fa-facebook fa-3x"></i></a>
-	<a href = "https://www.linkedin.com/"><i class="fab fa-linkedin fa-3x"></i></a>
-	<a href = "https://www.youtube.com/"><i class="fab fa-youtube fa-3x"></i></a>
+  <script>
+    const questions = [
+      /* PLACEHOLDER: 100 questions will be inserted here */
+    ];
 
+    let prepTime = 15; // seconds
+    let responseTime = 45; // seconds
+    let timerInterval;
+
+    const startBtn = document.getElementById('startBtn');
+    const questionDiv = document.getElementById('question');
+    const timerDiv = document.getElementById('timer');
+
+    function startTimer(seconds, onTick, onComplete) {
+      let timeLeft = seconds;
+      onTick(timeLeft);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(timerInterval);
+          onComplete();
+        } else {
+          onTick(timeLeft);
+        }
+      }, 1000);
+    }
+
+    function startTest() {
+      startBtn.disabled = true;
+      // Pick a random question
+      const questionIndex = Math.floor(Math.random() * questions.length);
+      questionDiv.textContent = questions[questionIndex];
+
+      // Start prep timer
+      timerDiv.textContent = 'Preparation Time: ' + prepTime + ' seconds';
+      startTimer(prepTime,
+        (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
+        () => {
+          // After prep timer ends, start response timer
+          timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
+          startTimer(responseTime,
+            (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
+            () => {
+              timerDiv.textContent = 'Time is up! Click Start to try another question.';
+              startBtn.disabled = false;
+            }
+          );
+        }
+      );
+    }
+
+    startBtn.addEventListener('click', startTest);
+  </script>
 </body>
 </html>
