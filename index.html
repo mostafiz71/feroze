@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEFL Speaking Test-1 Practice</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    #question { margin: 20px 0; font-size: 1.2em; }
+    #timer { font-size: 2em; color: #d9534f; }
+    #startBtn { padding: 10px 20px; font-size: 1em; }
+  </style>
+</head>
+<body>
+  <h1>TOEFL Speaking Test-1 Practice</h1>
+  <button id="startBtn">Start Test</button>
+  <div id="question"></div>
+  <div id="timer"></div>
+
+  <script>
+    const questions = [
+      /* PLACEHOLDER: 100 questions will be inserted here */
+    ];
+
+    let prepTime = 15; // seconds
+    let responseTime = 45; // seconds
+    let timerInterval;
+
+    const startBtn = document.getElementById('startBtn');
+    const questionDiv = document.getElementById('question');
+    const timerDiv = document.getElementById('timer');
+
+    function startTimer(seconds, onTick, onComplete) {
+      let timeLeft = seconds;
+      onTick(timeLeft);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(timerInterval);
+          onComplete();
+        } else {
+          onTick(timeLeft);
+        }
+      }, 1000);
+    }
+
+    function startTest() {
+      startBtn.disabled = true;
+      // Pick a random question
+      const questionIndex = Math.floor(Math.random() * questions.length);
+      questionDiv.textContent = questions[questionIndex];
+
+      // Start prep timer
+      timerDiv.textContent = 'Preparation Time: ' + prepTime + ' seconds';
+      startTimer(prepTime,
+        (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
+        () => {
+          // After prep timer ends, start response timer
+          timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
+          startTimer(responseTime,
+            (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
+            () => {
+              timerDiv.textContent = 'Time is up! Click Start to try another question.';
+              startBtn.disabled = false;
+            }
+          );
+        }
+      );
+    }
+
+    startBtn.addEventListener('click', startTest);
+  </script>
+</body>
+</html>
