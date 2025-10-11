@@ -24,7 +24,103 @@
         "Describe your hometown.",
         "What is your favorite season of the year? Explain why.",
         "Describe a memorable event in your life.",
-        // ... (include all 100 questions here)
+        "What is a hobby you enjoy?",
+        "Who is a person you admire? Explain why?",
+        "Describe your favorite food.",
+        "What is the best way to study for an exam?",
+        "Describe your favorite place to relax.",
+        "What kind of music do you like?",
+        "Describe your daily routine.",
+        "What is your favorite type of movie?",
+        "Tell about a book you enjoyed reading.",
+        "Describe a teacher who had a positive impact on you.",
+        "What is a useful skill to learn?",
+        "Describe a city you would like to visit.",
+        "What is your favorite sport?",
+        "Describe your ideal vacation.",
+        "What is the importance of exercise?",
+        "Describe a technology you use often.",
+        "What is your favorite season?",
+        "Tell about a time you helped someone.",
+        "What is a popular holiday in your country?",
+        "Describe your best friend.",
+        "What is the importance of learning languages?",
+        "Describe your favorite restaurant.",
+        "What is your favorite type of weather?",
+        "Tell about an important tradition in your family.",
+        "Describe a movie you liked.",
+        "What is your favorite subject in school?",
+        "Describe a pet you like.",
+        "What is a good way to make friends?",
+        "Describe your favorite holiday.",
+        "What is your favorite type of music?",
+        "Describe a time you traveled somewhere.",
+        "What is your favorite way to relax?",
+        "Describe a skill you want to learn.",
+        "What is your favorite kind of food?",
+        "Describe a place you often visit.",
+        "What is a good way to stay healthy?",
+        "Describe your favorite activity on weekends.",
+        "What is the importance of reading?",
+        "Describe your favorite sport to watch.",
+        "What is your favorite time of day?",
+        "Describe a hobby your family has.",
+        "What is the best way to spend free time?",
+        "Describe your favorite outfit.",
+        "What is your favorite thing about your school?",
+        "Describe an important celebration.",
+        "What is a good way to learn a new language?",
+        "Describe a famous place in your country.",
+        "What is your favorite mode of transportation?",
+        "Describe a memorable trip.",
+        "What is the importance of music in life?",
+        "Describe your favorite restaurant food.",
+        "What do you like to do in the summer?",
+        "Describe your dream job.",
+        "What is a good way to meet people?",
+        "Describe an interesting book you read.",
+        "What is your favorite kind of movie?",
+        "Describe a teacher you like.",
+        "What is the best advice you have received?",
+        "Describe your morning routine.",
+        "What do you do to stay healthy?",
+        "Describe a challenge you have faced.",
+        "What is your favorite holiday activity?",
+        "Describe your favorite animal.",
+        "What is the importance of exercise?",
+        "Describe a place you want to visit.",
+        "What do you like to do in your free time?",
+        "Describe a family member you admire.",
+        "What is your favorite sport to play?",
+        "Describe your favorite musical instrument.",
+        "What is a good way to study?",
+        "Describe your hometown's best feature.",
+        "What is your favorite dessert?",
+        "Describe a historical place you want to see.",
+        "What do you enjoy about your school?",
+        "Describe your favorite TV show.",
+        "What is the best way to learn new skills?",
+        "Describe a personal goal you have.",
+        "What is your favorite outdoor activity?",
+        "Describe a special gift you received.",
+        "What is your favorite book genre?",
+        "Describe a place you relax.",
+        "What is a good way to improve your memory?",
+        "Describe your favorite restaurant.",
+        "What is your favorite way to exercise?",
+        "Describe a new hobby you want to try.",
+        "What do you like most about your city?",
+        "Describe a sport you enjoy watching.",
+        "What is your favorite type of art?",
+        "Describe a memorable family event.",
+        "What is the best way to prepare for tests?",
+        "Describe a book that changed your life.",
+        "What is your favorite kind of music?",
+        "Describe your ideal weekend.",
+        "What is the importance of friendship?",
+        "Describe a cultural event you like.",
+        "What is your favorite food to cook?",
+        "Describe a famous person you want to meet.",
         "What is your favorite place to study?"
       ];
 
@@ -35,6 +131,15 @@
       const startBtn = document.getElementById('startBtn');
       const questionDiv = document.getElementById('question');
       const timerDiv = document.getElementById('timer');
+
+      // Simple beep sound base64 wav (short tone)
+      const beepSound = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=');
+
+      function speak(text, onEnd) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.onend = onEnd;
+        speechSynthesis.speak(utterance);
+      }
 
       function startTimer(seconds, onTick, onComplete) {
         let timeLeft = seconds;
@@ -52,26 +157,32 @@
 
       function startTest() {
         startBtn.disabled = true;
-        // Pick a random question
         const questionIndex = Math.floor(Math.random() * questions.length);
-        questionDiv.textContent = questions[questionIndex];
+        const questionText = questions[questionIndex];
+        questionDiv.textContent = questionText;
 
-        // Start prep timer
-        timerDiv.textContent = 'Preparation Time: ' + prepTime + ' seconds';
-        startTimer(prepTime,
-          (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
-          () => {
-            // After prep timer ends, start response timer
-            timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
-            startTimer(responseTime,
-              (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
+        // Speak question then instructions and timers in sequence
+        speak(questionText, () => {
+          speak("Start preparing your response", () => {
+            timerDiv.textContent = 'Preparation Time: ' + prepTime + ' seconds';
+            startTimer(prepTime,
+              (t) => { timerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
               () => {
-                timerDiv.textContent = 'Time is up! Click Start to try another question.';
-                startBtn.disabled = false;
+                beepSound.play();
+                speak("Now give your response", () => {
+                  timerDiv.textContent = 'Response Time: ' + responseTime + ' seconds';
+                  startTimer(responseTime,
+                    (t) => { timerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
+                    () => {
+                      timerDiv.textContent = 'Time is up! Click Start to try another question.';
+                      startBtn.disabled = false;
+                    }
+                  );
+                });
               }
             );
-          }
-        );
+          });
+        });
       }
 
       startBtn.addEventListener('click', startTest);
