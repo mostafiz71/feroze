@@ -15,17 +15,17 @@
     #writingContainer { display: flex; gap: 20px; }
     #passageText {
       border: 1px solid #ccc; padding: 15px; height: 450px; overflow-y: auto; margin-top: 10px; white-space: pre-line;
-      font-size: 1.1em;
-      line-height: 1.5;
+      font-size: 1.1em; line-height: 1.5;
       display: none; /* Hidden initially */
     }
     #passage {
-      width: 48%; border: 1px solid #ccc; padding: 15px; height: 500px; overflow-y: auto; white-space: pre-line;
-      font-size: 1.1em;
-      line-height: 1.5;
+      width: 60%; /* Wider */
+      border: 1px solid #ccc; padding: 15px; height: 500px; overflow-y: auto; white-space: pre-line;
+      font-size: 1.1em; line-height: 1.5;
     }
     #writeBox {
-      width: 48%; display: flex; flex-direction: column;
+      width: 40%; /* Wider */
+      display: flex; flex-direction: column;
     }
     #writeBox textarea {
       width: 100%; height: 500px; font-size: 1em; padding: 10px; resize: vertical;
@@ -38,6 +38,12 @@
     }
     #readingTimer, #writingInstruction, #startWritingBtn {
       display: none;
+    }
+    #writingInstruction {
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -72,7 +78,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
       </div>
     </div>
     <div id="readingTimer">Reading Time Remaining: 03:00</div>
-    <p id="writingInstruction" style="font-style: italic; margin-top:10px;"></p>
+    <p id="writingInstruction"></p>
     <button id="startWritingBtn">Start Writing</button>
 
     <div id="writingArea">
@@ -100,7 +106,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
         "Would you rather attend classes in the morning or in the afternoon? Why?",
         "Should students be required to take physical education classes? Why or why not?",
         "Do you agree or disagree that technology makes learning easier? Provide reasons.",
-        "Is it better to study with music or in complete silence? Explain your opinion.",
+        "Is it better to study with music or in complete silence? Explain your opinion."
       ];
 
       const speakingPrepTime = 15;
@@ -207,7 +213,8 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
           readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
           if (readingTime <= 0) {
             clearInterval(readingTimerInterval);
-            readingTimerDiv.textContent = "Reading time is over.";
+            readingTimerDiv.textContent = "";
+            passageTextDiv.style.display = 'none';
             writingInstruction.textContent = "Now play the audio.";
             writingInstruction.style.display = 'block';
             startWritingBtn.style.display = 'inline-block';
