@@ -153,4 +153,96 @@ One popular solution is the expansion of public transportation systems such as b
 
 One popular solution is the expansion of public transportation systems such as buses and subways. By providing efficient and affordable transportation alternatives, cities hope to reduce the number of private vehicles on the road, thus easing congestion and improving air quality. However, investments in infrastructure and public willingness to use these systems remain important factors for success.`;
 
-      const readingTimerDiv = document
+      const readingTimerDiv = document.getElementById('readingTimer');
+      const writingInstruction = document.getElementById('writingInstruction');
+      const startWritingBtn = document.getElementById('startWritingBtn');
+      const startWritingTestBtn = document.getElementById('startWritingTestBtn');
+      const writingArea = document.getElementById('writingArea');
+      const writingPassageDiv = document.querySelector('#writingArea #passage');
+      const passageTextDiv = document.getElementById('passageText');
+      const writeTextArea = document.querySelector('#writingArea textarea');
+      const wordCountDiv = document.getElementById('wordCount');
+      const writingTimerDiv = document.getElementById('writingTimer');
+
+      let readingTime = 180; // 3 min reading
+      let writingTime = 20 * 60; // 20 min writing
+      let readingTimerInterval;
+      let writingTimerInterval;
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
+      function startReadingTimer() {
+        readingTime = 180;
+        readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
+        readingTimerDiv.style.display = 'block';
+        passageTextDiv.style.display = 'block';
+        readingTimerInterval = setInterval(() => {
+          readingTime--;
+          readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
+          if (readingTime <= 0) {
+            clearInterval(readingTimerInterval);
+            readingTimerDiv.textContent = "Reading time is over.";
+            writingInstruction.textContent = "Now play the audio.";
+            startWritingBtn.style.display = 'inline-block';
+          }
+        }, 1000);
+      }
+
+      function startWritingTimer() {
+        writingTime = 20 * 60;
+        writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
+        writingTimerDiv.style.display = 'block';
+        writingTimerInterval = setInterval(() => {
+          writingTime--;
+          writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
+          if (writingTime <= 0) {
+            clearInterval(writingTimerInterval);
+            writingTimerDiv.textContent = "Time is up! Please finish your response.";
+            writeTextArea.disabled = true;
+          }
+        }, 1000);
+      }
+
+      function updateWordCount() {
+        const text = writeTextArea.value.trim();
+        const words = text.length > 0 ? text.match(/\S+/g).length : 0;
+        wordCountDiv.textContent = `Word count: ${words}`;
+      }
+
+      startWritingTestBtn.addEventListener('click', () => {
+        startWritingTestBtn.style.display = 'none';
+        startReadingTimer();
+      });
+
+      startWritingBtn.addEventListener('click', () => {
+        startWritingBtn.style.display = 'none';
+        writingInstruction.textContent = '';
+        writingArea.style.display = 'flex';
+        // Hide initial reading passage container (passageTextContainer)
+        document.getElementById('passageTextContainer').style.display = 'none';
+        document.getElementById('readingTimer').style.display = 'none';
+
+        // Show writing container with passage and textarea
+        writingPassageDiv.textContent = writingPassage;
+        writeTextArea.value = '';
+        writeTextArea.disabled = false;
+        wordCountDiv.textContent = 'Word count: 0';
+        startWritingTimer();
+      });
+
+      writeTextArea.addEventListener('input', updateWordCount);
+
+      // Initial states on page load
+      readingTimerDiv.style.display = 'none';
+      passageTextDiv.style.display = 'none';
+      writingInstruction.textContent = '';
+      startWritingBtn.style.display = 'none';
+      writingArea.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
