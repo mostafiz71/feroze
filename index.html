@@ -14,11 +14,10 @@
     #writingArea { display: none; margin-top: 15px; }
     #writingContainer { display: flex; gap: 20px; }
     #passageText {
-      border: 1px solid #ccc; padding: 15px; overflow-y: auto; margin-top: 10px; white-space: pre-line;
-      width: 100%; /* Full width to be adjusted by container */
-      height: 450px; /* Increased height to show ~5 paragraphs */
+      border: 1px solid #ccc; padding: 15px; height: 450px; overflow-y: auto; margin-top: 10px; white-space: pre-line;
       font-size: 1.1em;
       line-height: 1.5;
+      display: none; /* Hidden initially */
     }
     #passage {
       width: 48%; border: 1px solid #ccc; padding: 15px; height: 500px; overflow-y: auto; white-space: pre-line;
@@ -184,6 +183,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
       const writeTextArea = document.querySelector('#writingArea textarea');
       const wordCountDiv = document.getElementById('wordCount');
       const writingTimerDiv = document.getElementById('writingTimer');
+      const passageTextDiv = document.getElementById('passageText');
       const passageTextContainer = document.getElementById('passageTextContainer');
 
       let readingTime = 180;
@@ -201,7 +201,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
         readingTime = 180;
         readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
         readingTimerDiv.style.display = 'block';
-        passageTextContainer.style.display = 'block';
+        passageTextDiv.style.display = 'block';
         readingTimerInterval = setInterval(() => {
           readingTime--;
           readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
@@ -238,16 +238,19 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
 
       startWritingTestBtn.addEventListener('click', () => {
         startWritingTestBtn.style.display = 'none';
-        startReadingTimer();
+        readingTimerDiv.style.display = 'block';
+        passageTextDiv.style.display = 'block';
         writingInstruction.style.display = 'none';
         startWritingBtn.style.display = 'none';
+        writingArea.style.display = 'none';
+        startReadingTimer();
       });
 
       startWritingBtn.addEventListener('click', () => {
         startWritingBtn.style.display = 'none';
         writingInstruction.style.display = 'none';
         readingTimerDiv.style.display = 'none';
-        passageTextContainer.style.display = 'none';
+        passageTextDiv.style.display = 'none';
 
         writingArea.style.display = 'flex';
         writingPassageDiv.textContent = writingPassageText;
@@ -265,7 +268,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
       writingInstruction.style.display = 'none';
       startWritingBtn.style.display = 'none';
       writingArea.style.display = 'none';
-
+      passageTextDiv.style.display = 'none';
     });
   </script>
 </body>
