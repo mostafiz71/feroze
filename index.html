@@ -193,7 +193,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
       const passageTextContainer = document.getElementById('passageTextContainer');
       const speakingTaskSection = document.getElementById('speakingTask');
 
-      let readingTime = 180;
+      let readingTime = 1;
       let writingTime = 20 * 60;
       let readingTimerInterval;
       let writingTimerInterval;
@@ -205,7 +205,7 @@ Overall, sustainable transport solutions are becoming essential as cities grow a
       }
 
       function startReadingTimer() {
-        readingTime = 180;
+        readingTime = 1;
         readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
         readingTimerDiv.style.display = 'block';
         passageTextDiv.style.display = 'block';
