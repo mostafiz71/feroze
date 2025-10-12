@@ -13,12 +13,33 @@
     button { padding: 10px 25px; font-size: 1.1em; cursor: pointer; }
     #writingArea { display: none; margin-top: 15px; }
     #writingContainer { display: flex; gap: 20px; }
-    #passage { width: 45%; border: 1px solid #ccc; padding: 15px; height: 300px; overflow-y: auto; white-space: pre-line; }
-    #writeBox { width: 55%; display: flex; flex-direction: column; }
-    #writeBox textarea { width: 100%; height: 300px; font-size: 1em; padding: 10px; resize: vertical; }
-    #writingTimer, #readingTimer, #wordCount { font-size: 1.2em; color: #d9534f; text-align: center; margin-top: 10px; }
-    #startWritingBtn, #startWritingTestBtn { margin-top: 10px; }
-    #passageText, #readingTimer, #writingInstruction, #startWritingBtn { display: none; }
+    #passageText {
+      border: 1px solid #ccc; padding: 15px; overflow-y: auto; margin-top: 10px; white-space: pre-line;
+      width: 100%; /* Full width to be adjusted by container */
+      height: 450px; /* Increased height to show ~5 paragraphs */
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    #passage {
+      width: 48%; border: 1px solid #ccc; padding: 15px; height: 500px; overflow-y: auto; white-space: pre-line;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    #writeBox {
+      width: 48%; display: flex; flex-direction: column;
+    }
+    #writeBox textarea {
+      width: 100%; height: 500px; font-size: 1em; padding: 10px; resize: vertical;
+    }
+    #writingTimer, #readingTimer, #wordCount {
+      font-size: 1.2em; color: #d9534f; text-align: center; margin-top: 10px;
+    }
+    #startWritingBtn, #startWritingTestBtn {
+      margin-top: 10px;
+    }
+    #readingTimer, #writingInstruction, #startWritingBtn {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -39,10 +60,16 @@
 
     <div id="passageTextContainer">
       <strong>Reading Passage:</strong>
-      <div id="passageText" style="border:1px solid #ccc; padding:15px; height: 150px; overflow-y:auto; margin-top: 10px; white-space: pre-line;">
+      <div id="passageText">
 In recent years, many cities have faced challenges related to traffic congestion. With the increasing number of vehicles on the road, commuting has become time-consuming and stressful for many people. These issues have led city planners to explore alternative transportation options to improve traffic flow.
 
 One popular solution is the expansion of public transportation systems such as buses and subways. By providing efficient and affordable transportation alternatives, cities hope to reduce the number of private vehicles on the road, thus easing congestion and improving air quality. However, investments in infrastructure and public willingness to use these systems remain important factors for success.
+
+Recent studies also suggest that encouraging cycling and walking can significantly lower traffic volumes and promote healthier lifestyles. Creating dedicated bike lanes and pedestrian-friendly zones has gained popularity in urban planning.
+
+Despite these advances, many challenges remain such as funding, maintenance, and public acceptance. It will require cooperation between governments, citizens, and businesses to effectively manage transportation demands.
+
+Overall, sustainable transport solutions are becoming essential as cities grow and environmental concerns rise.
       </div>
     </div>
     <div id="readingTimer">Reading Time Remaining: 03:00</div>
@@ -51,9 +78,7 @@ One popular solution is the expansion of public transportation systems such as b
 
     <div id="writingArea">
       <div id="writingContainer">
-        <div id="passage">
-          <!-- Paragraphs inserted here on writing start -->
-        </div>
+        <div id="passage"></div>
         <div id="writeBox">
           <textarea placeholder="Write your response here..."></textarea>
           <div id="wordCount">Word count: 0</div>
@@ -65,7 +90,7 @@ One popular solution is the expansion of public transportation systems such as b
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // ========== Speaking Task 1 ==========
+      // Speaking Task 1
       const speakingQuestions = [
         "Do you think it is better to study at home or at the library? Explain why.",
         "Should college students take courses in many different fields or focus on one subject? Why?",
@@ -76,8 +101,7 @@ One popular solution is the expansion of public transportation systems such as b
         "Would you rather attend classes in the morning or in the afternoon? Why?",
         "Should students be required to take physical education classes? Why or why not?",
         "Do you agree or disagree that technology makes learning easier? Provide reasons.",
-        "Is it better to study with music or in complete silence? Explain your opinion."
-        // Remaining questions omitted for brevity
+        "Is it better to study with music or in complete silence? Explain your opinion.",
       ];
 
       const speakingPrepTime = 15;
@@ -148,10 +172,8 @@ One popular solution is the expansion of public transportation systems such as b
 
       startSpeakingBtn.addEventListener('click', startSpeakingTest);
 
-      // ========== Writing Task 1 ==========
-      const writingPassage = `In recent years, many cities have faced challenges related to traffic congestion. With the increasing number of vehicles on the road, commuting has become time-consuming and stressful for many people. These issues have led city planners to explore alternative transportation options to improve traffic flow.
-
-One popular solution is the expansion of public transportation systems such as buses and subways. By providing efficient and affordable transportation alternatives, cities hope to reduce the number of private vehicles on the road, thus easing congestion and improving air quality. However, investments in infrastructure and public willingness to use these systems remain important factors for success.`;
+      // Writing Task 1
+      const writingPassageText = document.getElementById('passageText').textContent.trim();
 
       const readingTimerDiv = document.getElementById('readingTimer');
       const writingInstruction = document.getElementById('writingInstruction');
@@ -159,13 +181,13 @@ One popular solution is the expansion of public transportation systems such as b
       const startWritingTestBtn = document.getElementById('startWritingTestBtn');
       const writingArea = document.getElementById('writingArea');
       const writingPassageDiv = document.querySelector('#writingArea #passage');
-      const passageTextDiv = document.getElementById('passageText');
       const writeTextArea = document.querySelector('#writingArea textarea');
       const wordCountDiv = document.getElementById('wordCount');
       const writingTimerDiv = document.getElementById('writingTimer');
+      const passageTextContainer = document.getElementById('passageTextContainer');
 
-      let readingTime = 180; // 3 min reading
-      let writingTime = 20 * 60; // 20 min writing
+      let readingTime = 180;
+      let writingTime = 20 * 60;
       let readingTimerInterval;
       let writingTimerInterval;
 
@@ -179,7 +201,7 @@ One popular solution is the expansion of public transportation systems such as b
         readingTime = 180;
         readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
         readingTimerDiv.style.display = 'block';
-        passageTextDiv.style.display = 'block';
+        passageTextContainer.style.display = 'block';
         readingTimerInterval = setInterval(() => {
           readingTime--;
           readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
@@ -187,6 +209,7 @@ One popular solution is the expansion of public transportation systems such as b
             clearInterval(readingTimerInterval);
             readingTimerDiv.textContent = "Reading time is over.";
             writingInstruction.textContent = "Now play the audio.";
+            writingInstruction.style.display = 'block';
             startWritingBtn.style.display = 'inline-block';
           }
         }, 1000);
@@ -216,21 +239,22 @@ One popular solution is the expansion of public transportation systems such as b
       startWritingTestBtn.addEventListener('click', () => {
         startWritingTestBtn.style.display = 'none';
         startReadingTimer();
+        writingInstruction.style.display = 'none';
+        startWritingBtn.style.display = 'none';
       });
 
       startWritingBtn.addEventListener('click', () => {
         startWritingBtn.style.display = 'none';
-        writingInstruction.textContent = '';
-        writingArea.style.display = 'flex';
-        // Hide initial reading passage container (passageTextContainer)
-        document.getElementById('passageTextContainer').style.display = 'none';
-        document.getElementById('readingTimer').style.display = 'none';
+        writingInstruction.style.display = 'none';
+        readingTimerDiv.style.display = 'none';
+        passageTextContainer.style.display = 'none';
 
-        // Show writing container with passage and textarea
-        writingPassageDiv.textContent = writingPassage;
+        writingArea.style.display = 'flex';
+        writingPassageDiv.textContent = writingPassageText;
+
         writeTextArea.value = '';
         writeTextArea.disabled = false;
-        wordCountDiv.textContent = 'Word count: 0';
+        updateWordCount();
         startWritingTimer();
       });
 
@@ -238,10 +262,10 @@ One popular solution is the expansion of public transportation systems such as b
 
       // Initial states on page load
       readingTimerDiv.style.display = 'none';
-      passageTextDiv.style.display = 'none';
-      writingInstruction.textContent = '';
+      writingInstruction.style.display = 'none';
       startWritingBtn.style.display = 'none';
       writingArea.style.display = 'none';
+
     });
   </script>
 </body>
