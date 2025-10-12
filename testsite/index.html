@@ -17,7 +17,8 @@
     #writeBox { width: 55%; }
     #writeBox textarea { width: 100%; height: 300px; font-size: 1em; padding: 10px; }
     #writingTimer, #readingTimer { font-size: 1.5em; color: #d9534f; text-align: center; margin-top: 10px; }
-    #startWritingBtn { display: none; margin-top: 10px; }
+    #startWritingBtn, #startWritingTestBtn { margin-top: 10px; }
+    #passageText, #readingTimer, #writingInstruction, #startWritingBtn, #writingArea { display: none; }
   </style>
 </head>
 <body>
@@ -34,7 +35,9 @@
   <!-- Writing Task 1 Section -->
   <section id="writingTask">
     <h2>Writing Task 1 Practice</h2>
-    <div id="passageContainer">
+    <button id="startWritingTestBtn">Start Writing Test</button>
+
+    <div id="passageTextContainer">
       <strong>Reading Passage:</strong>
       <div id="passageText" style="border:1px solid #ccc; padding:15px; height: 150px; overflow-y:auto; margin-top: 10px;">
         In recent years, the use of renewable energy sources has become more widespread. Many people believe that using wind and solar power can help reduce pollution and global warming. However, some argue that renewable energy technologies are still too expensive and unreliable to depend on. Despite these concerns, governments worldwide have started investing heavily in renewable energy research and infrastructure.
@@ -43,6 +46,7 @@
     <div id="readingTimer">Reading Time Remaining: 03:00</div>
     <p id="writingInstruction" style="font-style: italic; margin-top:10px;"></p>
     <button id="startWritingBtn">Start Writing</button>
+
     <div id="writingArea">
       <div id="writingContainer">
         <div id="passage" style="border:1px solid #ccc; padding:15px; height: 300px; overflow-y:auto;">
@@ -70,7 +74,6 @@
         "Should students be required to take physical education classes? Why or why not?",
         "Do you agree or disagree that technology makes learning easier? Provide reasons.",
         "Is it better to study with music or in complete silence? Explain your opinion.",
-        // ... rest of your 100 questions ...
       ];
 
       const speakingPrepTime = 15;
@@ -148,11 +151,11 @@
       const readingTimerDiv = document.getElementById('readingTimer');
       const writingInstruction = document.getElementById('writingInstruction');
       const startWritingBtn = document.getElementById('startWritingBtn');
+      const startWritingTestBtn = document.getElementById('startWritingTestBtn');
       const writingArea = document.getElementById('writingArea');
       const writingPassageDiv = document.querySelector('#writingArea #passage');
       const passageTextDiv = document.getElementById('passageText');
       const writeTextArea = document.querySelector('#writingArea textarea');
-      const writingTimerDiv = document.getElementById('writingTimer');
 
       let readingTime = 180; // 3 minutes
       let writingTime = 20 * 60; // 20 minutes in seconds
@@ -166,7 +169,10 @@
       }
 
       function startReadingTimer() {
+        readingTime = 180;
         readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
+        readingTimerDiv.style.display = 'block';
+        passageTextDiv.style.display = 'block';
         readingTimerInterval = setInterval(() => {
           readingTime--;
           readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
@@ -180,8 +186,9 @@
       }
 
       function startWritingTimer() {
-        writingTime = 20 * 60; // reset to 20 minutes
+        writingTime = 20 * 60;
         writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
+        writingTimerDiv.style.display = 'block';
         writingTimerInterval = setInterval(() => {
           writingTime--;
           writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
@@ -193,6 +200,11 @@
         }, 1000);
       }
 
+      startWritingTestBtn.addEventListener('click', () => {
+        startWritingTestBtn.style.display = 'none';
+        startReadingTimer();
+      });
+
       startWritingBtn.addEventListener('click', () => {
         startWritingBtn.style.display = 'none';
         writingInstruction.textContent = '';
@@ -201,10 +213,12 @@
         startWritingTimer();
       });
 
-      // Initialize on load
+      // Initial state on page load
+      readingTimerDiv.style.display = 'none';
+      passageTextDiv.style.display = 'none';
+      writingInstruction.textContent = '';
       startWritingBtn.style.display = 'none';
       writingArea.style.display = 'none';
-      startReadingTimer();
 
     });
   </script>
