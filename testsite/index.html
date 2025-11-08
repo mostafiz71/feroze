@@ -1,226 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>TOEFL Speaking and Writing Practice</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md Mostafizur Rahman | Power Electronics Research</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; }
-    h1 { text-align: center; margin-bottom: 10px; }
-    section { margin-bottom: 40px; }
-    #question, #timer, #speakingTimer { font-size: 1.3em; color: #333; margin: 15px 0; }
-    #speakingTimer { color: #d9534f; text-align: center; font-size: 2em; }
-    button { padding: 10px 25px; font-size: 1.1em; cursor: pointer; }
-    #writingArea { display: none; margin-top: 15px; }
-    #writingContainer { display: flex; gap: 20px; }
-    #passage { width: 45%; border: 1px solid #ccc; padding: 15px; height: 300px; overflow-y: auto; }
-    #writeBox { width: 55%; }
-    #writeBox textarea { width: 100%; height: 300px; font-size: 1em; padding: 10px; }
-    #writingTimer, #readingTimer { font-size: 1.5em; color: #d9534f; text-align: center; margin-top: 10px; }
-    #startWritingBtn, #startWritingTestBtn { margin-top: 10px; }
-    #passageText, #readingTimer, #writingInstruction, #startWritingBtn, #writingArea { display: none; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 40px auto;
+      max-width: 900px;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1, h2 {
+      color: #004080;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .photo {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
-  <h1>TOEFL Speaking and Writing Practice</h1>
 
-  <!-- Speaking Task 1 Section -->
-  <section id="speakingTask">
-    <h2>Speaking Task 1 Practice</h2>
-    <button id="startSpeakingBtn">Start Speaking Test</button>
-    <div id="question"></div>
-    <div id="speakingTimer"></div>
-  </section>
+  <div class="header">
+    <h1>Md Mostafizur Rahman</h1>
+    <p>Assistant Engineer, Power Grid Bangladesh PLC</p>
+    <p><a href="mailto:mostafiz0112@gmail.com">mostafiz0112@gmail.com</a> |
+       <a href="https://www.linkedin.com/in/md-mostafizur-rahman71/">LinkedIn</a> |
+       <a href="CV_MdMostafizurRahman.pdf">Download CV</a></p>
+  </div>
 
-  <!-- Writing Task 1 Section -->
-  <section id="writingTask">
-    <h2>Writing Task 1 Practice</h2>
-    <button id="startWritingTestBtn">Start Writing Test</button>
+  <hr>
 
-    <div id="passageTextContainer">
-      <strong>Reading Passage:</strong>
-      <div id="passageText" style="border:1px solid #ccc; padding:15px; height: 150px; overflow-y:auto; margin-top: 10px;">
-        In recent years, the use of renewable energy sources has become more widespread. Many people believe that using wind and solar power can help reduce pollution and global warming. However, some argue that renewable energy technologies are still too expensive and unreliable to depend on. Despite these concerns, governments worldwide have started investing heavily in renewable energy research and infrastructure.
-      </div>
-    </div>
-    <div id="readingTimer">Reading Time Remaining: 03:00</div>
-    <p id="writingInstruction" style="font-style: italic; margin-top:10px;"></p>
-    <button id="startWritingBtn">Start Writing</button>
+  <h2>About Me</h2>
+  <p>
+    I am an Assistant Engineer at Power Grid Bangladesh PLC, working in the operation and maintenance of 132/33 kV grid substations. 
+    I completed my B.Sc. in Electrical and Electronic Engineering from <strong>Bangladesh University of Engineering and Technology (BUET)</strong> 
+    in 2019. My undergraduate thesis focused on <em>T-Gate AlInN/AlN/GaN HEMT design and analysis using Silvaco ATLAS TCAD</em> 
+    for high-power and RF applications. I am passionate about developing high-efficiency, reliable, and intelligent 
+    <strong>wide-bandgap (GaN, SiC) power electronic systems</strong> for future energy and transportation applications.
+  </p>
 
-    <div id="writingArea">
-      <div id="writingContainer">
-        <div id="passage" style="border:1px solid #ccc; padding:15px; height: 300px; overflow-y:auto;">
-          <!-- Passage repeated here when writing starts -->
-        </div>
-        <div id="writeBox">
-          <textarea placeholder="Write your response here..."></textarea>
-          <div id="writingTimer">Time Remaining: 20:00</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <hr>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // ========== Speaking Task 1 ==========
-      const speakingQuestions = [
-        "Do you think it is better to study at home or at the library? Explain why.",
-        "Should college students take courses in many different fields or focus on one subject? Why?",
-        "Do you agree or disagree that all students should live on campus their first year?",
-        "Would you prefer to use a tablet or a laptop for your studies? Why?",
-        "Should universities offer more career counseling services or more academic support programs?",
-        "Do you think students benefit more from group projects or individual assignments? Explain your choice.",
-        "Would you rather attend classes in the morning or in the afternoon? Why?",
-        "Should students be required to take physical education classes? Why or why not?",
-        "Do you agree or disagree that technology makes learning easier? Provide reasons.",
-        "Is it better to study with music or in complete silence? Explain your opinion.",
-      ];
+  <h2>Research Interests</h2>
+  <ul>
+    <li>Wide-bandgap (SiC, GaN) Power Devices and High-voltage Module Integration</li>
+    <li>Medium-voltage DC–DC Converters and Solid-state Transformers</li>
+    <li>High-efficiency Power Conversion for Grid and Transportation Systems</li>
+    <li>AI-assisted Modeling, Design, and Control of Power Electronic Systems</li>
+    <li>Reliability and Thermal Management of SiC-based Converters</li>
+    <li>Grid-connected Renewable and Energy Storage Power Electronics</li>
+  </ul>
 
-      const speakingPrepTime = 15;
-      const speakingResponseTime = 45;
+  <hr>
 
-      const startSpeakingBtn = document.getElementById('startSpeakingBtn');
-      const speakingQuestionDiv = document.querySelector('#speakingTask #question');
-      const speakingTimerDiv = document.getElementById('speakingTimer');
-      const beepSound = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+  <h2>Research Experience</h2>
+  <p><strong>Undergraduate Thesis:</strong> “Design and Analysis of T-Gate AlInN/AlN/GaN HEMT with AlN Cap Layer for High Power and RF Applications”</p>
+  <ul>
+    <li>Supervised by Dr. Md. Shafiqul Islam, Professor, Department of EEE, BUET</li>
+    <li>Simulated 200 nm T-Gate AlInN/AlN/GaN HEMT on SiC substrate using Silvaco ATLAS TCAD</li>
+    <li>Achieved 2.4 A/mm current density, 800 mS/mm transconductance, and 120/170 GHz (ft/fmax)</li>
+    <li>Conference paper submitted based on this research</li>
+  </ul>
 
-      function speak(text, onEnd) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.onend = onEnd;
-        speechSynthesis.speak(utterance);
-      }
+  <hr>
 
-      function setIntervalTimer(seconds, onTick, onComplete) {
-        let timeLeft = seconds;
-        onTick(timeLeft);
-        const intervalId = setInterval(() => {
-          timeLeft--;
-          if (timeLeft < 0) {
-            clearInterval(intervalId);
-            onComplete();
-          } else {
-            onTick(timeLeft);
-          }
-        }, 1000);
-        return intervalId;
-      }
+  <h2>Professional Experience</h2>
 
-      function startSpeakingTest() {
-        startSpeakingBtn.disabled = true;
-        speakingTimerDiv.style.color = '#d9534f';
-        speakingTimerDiv.style.fontWeight = 'bold';
+  <p><strong>Assistant Engineer, Power Grid Bangladesh PLC</strong> (Apr 2021 – Present)</p>
+  <ul>
+    <li>Operation and maintenance of 132/33 kV grid substations including transformers, breakers, and protection systems</li>
+    <li>Coordination with National Load Dispatch Center (NLDC) for load management and fault restoration</li>
+    <li>Testing of transformers, current transformers (CTs), and protection relays</li>
+  </ul>
 
-        const questionIndex = Math.floor(Math.random() * speakingQuestions.length);
-        const questionText = speakingQuestions[questionIndex];
-        speakingQuestionDiv.textContent = questionText;
+  <p><strong>Executive, Orion Group</strong> (Feb 2020 – Mar 2021)</p>
+  <ul>
+    <li>Performed technical audits and inspections at power, pharmaceutical, and manufacturing plants</li>
+    <li>Evaluated electrical maintenance bills and supported procurement and tender evaluations</li>
+  </ul>
 
-        speak(questionText, () => {
-          speak("Start preparing your response", () => {
-            speakingTimerDiv.textContent = 'Preparation Time: ' + speakingPrepTime + ' seconds';
-            setIntervalTimer(
-              speakingPrepTime,
-              (t) => { speakingTimerDiv.textContent = 'Preparation Time: ' + t + ' seconds'; },
-              () => {
-                speak("Now record your response after the beep", () => {
-                  setTimeout(() => { beepSound.play(); }, 300);
-                });
-                beepSound.onended = () => {
-                  speakingTimerDiv.textContent = 'Response Time: ' + speakingResponseTime + ' seconds';
-                  setIntervalTimer(
-                    speakingResponseTime,
-                    (t) => { speakingTimerDiv.textContent = 'Response Time: ' + t + ' seconds'; },
-                    () => {
-                      speakingTimerDiv.textContent = 'Time is up! Click Start to try another question.';
-                      startSpeakingBtn.disabled = false;
-                      speakingQuestionDiv.textContent = '';
-                    }
-                  );
-                };
-              }
-            );
-          });
-        });
-      }
+  <hr>
 
-      startSpeakingBtn.addEventListener('click', startSpeakingTest);
+  <h2>Selected Projects</h2>
+  <ul>
+    <li><strong>Smart Table Fan with Multi-PIR Detection:</strong> Designed an Arduino-controlled fan with human-tracking and speed adjustment using multiple PIR sensors.</li>
+    <li><strong>Autonomous Human-Following Cart:</strong> Developed an ultrasonic distance-controlled cart capable of tracking human movement.</li>
+    <li><strong>Wireless Wearable ECG System:</strong> Built a Bluetooth-enabled ECG device with MATLAB signal processing and Android interface.</li>
+    <li><strong>Light Hunting Game (Digital Logic Design):</strong> Implemented LED-based game logic using counters, multiplexers, and 555 timers.</li>
+  </ul>
 
-      // ========== Writing Task 1 ==========
+  <hr>
 
-      const writingPassage = `In recent years, the use of renewable energy sources has become more widespread. Many people believe that using wind and solar power can help reduce pollution and global warming. However, some argue that renewable energy technologies are still too expensive and unreliable to depend on. Despite these concerns, governments worldwide have started investing heavily in renewable energy research and infrastructure.`;
+  <h2>Technical Skills</h2>
+  <ul>
+    <li><strong>Simulation & Design:</strong> Silvaco ATLAS TCAD, MATLAB/Simulink, LTspice, Cadence Virtuoso</li>
+    <li><strong>Programming:</strong> Python (TensorFlow, Keras), C, Verilog</li>
+    <li><strong>Hardware:</strong> Arduino, Raspberry Pi, Sensor Interfacing, Embedded Systems</li>
+    <li><strong>Power Systems:</strong> SCADA, Transformer & Switchgear Testing, Grid Operation</li>
+  </ul>
 
-      const readingTimerDiv = document.getElementById('readingTimer');
-      const writingInstruction = document.getElementById('writingInstruction');
-      const startWritingBtn = document.getElementById('startWritingBtn');
-      const startWritingTestBtn = document.getElementById('startWritingTestBtn');
-      const writingArea = document.getElementById('writingArea');
-      const writingPassageDiv = document.querySelector('#writingArea #passage');
-      const passageTextDiv = document.getElementById('passageText');
-      const writeTextArea = document.querySelector('#writingArea textarea');
+  <hr>
 
-      let readingTime = 180; // 3 minutes
-      let writingTime = 20 * 60; // 20 minutes in seconds
-      let readingTimerInterval;
-      let writingTimerInterval;
+  <h2>Contact</h2>
+  <p>
+    📧 Email: <a href="mailto:mostafiz0112@gmail.com">mostafiz0112@gmail.com</a><br>
+    🌐 LinkedIn: <a href="https://www.linkedin.com/in/md-mostafizur-rahman71/">md-mostafizur-rahman71</a><br>
+    📍 Madaripur, Bangladesh
+  </p>
 
-      function formatTime(seconds) {
-        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const s = (seconds % 60).toString().padStart(2, '0');
-        return `${m}:${s}`;
-      }
-
-      function startReadingTimer() {
-        readingTime = 180;
-        readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
-        readingTimerDiv.style.display = 'block';
-        passageTextDiv.style.display = 'block';
-        readingTimerInterval = setInterval(() => {
-          readingTime--;
-          readingTimerDiv.textContent = `Reading Time Remaining: ${formatTime(readingTime)}`;
-          if(readingTime <= 0) {
-            clearInterval(readingTimerInterval);
-            readingTimerDiv.textContent = "Reading time is over.";
-            writingInstruction.textContent = "Now play the audio.";
-            startWritingBtn.style.display = 'inline-block';
-          }
-        }, 1000);
-      }
-
-      function startWritingTimer() {
-        writingTime = 20 * 60;
-        writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
-        writingTimerDiv.style.display = 'block';
-        writingTimerInterval = setInterval(() => {
-          writingTime--;
-          writingTimerDiv.textContent = `Time Remaining: ${formatTime(writingTime)}`;
-          if(writingTime <= 0) {
-            clearInterval(writingTimerInterval);
-            writingTimerDiv.textContent = "Time is up! Please finish your response.";
-            writeTextArea.disabled = true;
-          }
-        }, 1000);
-      }
-
-      startWritingTestBtn.addEventListener('click', () => {
-        startWritingTestBtn.style.display = 'none';
-        startReadingTimer();
-      });
-
-      startWritingBtn.addEventListener('click', () => {
-        startWritingBtn.style.display = 'none';
-        writingInstruction.textContent = '';
-        writingArea.style.display = 'block';
-        writingPassageDiv.textContent = writingPassage;
-        startWritingTimer();
-      });
-
-      // Initial state on page load
-      readingTimerDiv.style.display = 'none';
-      passageTextDiv.style.display = 'none';
-      writingInstruction.textContent = '';
-      startWritingBtn.style.display = 'none';
-      writingArea.style.display = 'none';
-
-    });
-  </script>
 </body>
 </html>
